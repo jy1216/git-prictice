@@ -1,2 +1,5 @@
+git log
+git status
+
 git branch feature1    创建分支
 git checkout feature1  切换分支
