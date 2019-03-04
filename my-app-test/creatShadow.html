@@ -5,7 +5,7 @@
     <title>创建shadowDom</title>
 </head>
 <body>
-<template>
+<template id="temp">
     <style>
         * {
             -webkit-box-sizing: border-box;
@@ -110,7 +110,11 @@
                     <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/5689/grooves.jpg">-->
                     <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/5689/arch.jpg">-->
                     <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/5689/sunset.jpg">-->
-                    <content select="img"></content>
+                    <img src="images/rock.jpg" alt="an interesting rock">
+                    <img src="images/grooves.jpg" alt="some neat grooves">
+                    <img src="images/arch.jpg" alt="a rock arch">
+                    <img src="images/sunset.jpg" alt="a dramatic sunset">
+                    <!--<content select="img"></content>-->
                 </div> <!-- .inner -->
             </div> <!-- #overflow -->
         </div>
@@ -128,32 +132,42 @@
 <!--<div class="img-slider">-->
     <!---->
 <!--</div>-->
-<img-slider>
-    <img src="images/rock.jpg" alt="an interesting rock">
-    <img src="images/grooves.jpg" alt="some neat grooves">
-    <img src="images/arch.jpg" alt="a rock arch">
-    <img src="images/sunset.jpg" alt="a dramatic sunset">
-</img-slider>
+<!--<img-slider>-->
+    <!--<img src="images/rock.jpg" alt="an interesting rock">-->
+    <!--<img src="images/grooves.jpg" alt="some neat grooves">-->
+    <!--<img src="images/arch.jpg" alt="a rock arch">-->
+    <!--<img src="images/sunset.jpg" alt="a dramatic sunset">-->
+<!--</img-slider>-->
+<img-slider></img-slider>
 <script>
     // var tmp1 = document.querySelector('template');
     // var host = document.querySelector('.img-slider');
     // var root = host.createShadowRoot();// 创建一个影子DOM
     // root.appendChild(document.importNode(tmp1.content, true));
     // importNode把一个节点从一个文档复制到另一个文档，当第二个deep参数为true时，还要复制该节点的所有子孙节点
-
-    var tmpl = document.querySelector('template');
+    // var tmpl = document.querySelector('#temp');
     // 为扩展HTMLElement的新元素创建原型
-    var ImgSliderProto = Object.create(HTMLElement.prototype);
+    // var ImgSliderProto = Object.create(HTMLElement.prototype);
     // alert(ImgSliderProto);
     // 创建阴影DOM，并且复制模板
-    ImgSliderProto.createdCallback = function () {
-        var root = this.createShadowRoot();
-        root.appendChild(document.importNode(tmpl.content,true));
-    };
+    // ImgSliderProto.createdCallback = function () {
+    //     var root = this.createShadowRoot();
+    //     root.appendChild(document.importNode(tmpl.content,true));
+    // };
     // 注册一个新标签
-    var ImgSlider = document.registerElement('img-slider',{
-        prototype:ImgSliderProto
-    })
+    // var ImgSlider = document.registerElement('img-slider',{
+    //     prototype:ImgSliderProto
+    // })
+    // 定义<img-slider>
+    class HTMLImgInfoElement extends HTMLElement {
+        constructor() {
+            super();
+            // 内部显示信息
+            this.innerHTML = document.currentScript.ownerDocument.querySelector('#temp').innerHTML;
+        }
+    };
+    // 注册
+    customElements.define('img-slider', HTMLImgInfoElement);
 </script>
 </body>
 </html>
