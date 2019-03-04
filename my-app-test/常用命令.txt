@@ -4,3 +4,7 @@ git status
 git branch feature1    创建分支
 git checkout feature1  切换分支
 git clone -b feature1  https://github.com/jy1216/git-prictice.git    更新分支feature1的内容
+
+Can't resolve '@angular/cdk/scrolling'
+npm install --save @angular/material
+npm install --save @angular/cdk
